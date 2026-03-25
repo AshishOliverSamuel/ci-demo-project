@@ -1,20 +1,19 @@
-name: CI Pipeline
+name: Docker CI Demo
 
-on: [push]
+on:
+  push:
+    branches: [ "main" ]
 
 jobs:
-  build:
+  build-and-run:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v3
+    - name: Checkout code
+      uses: actions/checkout@v3
 
-      - name: Setup Environment
-        run: echo "Setting up environment"
+    - name: Build Docker image
+      run: docker build -t my-python-app .
 
-      - name: Run Build Step
-        run: echo "Build successful"
-
-      - name: Run Tests
-        run: echo "Tests executed successfully"
+    - name: Run Docker container
+      run: docker run my-python-app
